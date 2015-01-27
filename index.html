@@ -1,59 +1,93 @@
-<!DOCTYPE HTML>​
-​<html lang="en-US">​
-​<head>​
-	<meta charset="UTF-8">​
-	<title>Advance Jquery</title>​
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />​
-	<link rel="stylesheet" href="assets/css/style.css"/>​
-	<script type="text/javascript" src="assets/js/jquery.min.js"></script>​
-	<script type="text/javascript">	
-		$(document).ready(function(){
-		
-			// submit event
-			$("form").submit(function(){
-			
-				// append a new contact card div
-				$("#contact").append("<div class='contact_info well'>"+
-					"<h1 class='name'>" + $("#first_name").val() + " " + $("#last_name").val() + 
-					"<br><small>Click for description</small></h1>"+
-					"<p class='description hidden'>" + $("#description").val() + "</p>"+
-					"</div>");
-				
-				return false;
-			});
-			
-			// click event for each contact card
-			$("#contact").on("click", ".contact_info", function(){
-				$(this).find('p.description').toggleClass("hidden");
-				$(this).find('h1.name').toggleClass("hidden");
-			});
-		})
-	</script>​
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Contact Card</title>	
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<!--Custom CSS-->
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+		<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript">
+			  $(document).ready(function(){
+  				$('#info').hide();
+			  	$('#form1').submit(function(){
+ 					form_data=$(this).serializeArray();
+					first_name= form_data[0].value;
+			  	 	last_name=  form_data[1].value;
+			  	 	description= form_data[2].value;
+ 					$('#info').show();
+ 					$('#info').children().children('tbody')
+ 										.append("<tr>"+
+	 											     "<td>"+first_name+"</td>"+
+	 											     "<td>"+last_name+"</td>"+
+	 											     "<td>"+
+		 											     "<p class='button_data'>"+
+		 											      	"<button class='desc_button'>Show Description</button>"
+		 											      +"</p>"
+		 											      +"<p class='hidden desc'>"+description+"</p>"
+		 											 +"</td>"+
+ 											     "</tr>");
+			  	    return false;
+			  	});
+
+			  	$('#info').on('click','.desc_button',function(){
+			  		button_clicked=$(this);
+			  		button_clicked.parent().toggleClass("hidden");
+			  		button_clicked.parent().siblings(".desc").toggleClass("hidden");
+			  	 
+			  	});
+		  });
+
 	
-​</head>​
-​<body>​
-	<div class="container">​
-		<div class="span4">​
-			<h3>Enter contact info</h3>​
-			<form>​
-				<label for="first_name" class="label">First Name</label>​
-				<div class="controls-group">​
-					<input type="test" id="first_name"/>​
-				</div>​
-				<label for="last_name" class="label">Last Name</label>​
-				<div class="controls">​
-					<input type="test" id="last_name"/>​
-				</div>​
-				<label for="description" class="label">description</label>​
-				<div class="controls">​
-					<textarea name="" id="description" cols="10" rows="3"></textarea>​
-				</div>​
-				<input type="submit" value="submit" class="btn btn-success"/>​
-			</form>​
-		</div>​
-		<div id="contact" class="span4">​
-			<h3 id="contact_header">Contact Information</h3>​
-		</div>​
-	</div>​
-​</body>​
-​</html>
+
+	 	</script>
+	</head>
+	 
+	 <body>
+	 	<div class="container">
+	 		<div class="row">  
+	 			<div class="span4">
+		 			<h1>Contact Card Sample</h1>
+				 	<form action="sign.php" method="post" id="form1">
+				 		 First Name 
+				 		<div class="controls-group">​
+				 	    	<input name="first_name" id="first">
+				 	    </div>
+				 		 Last Name 
+				 		<div class="controls-group">​
+				 			<input name="last_name" id="last">
+				 		</div>
+				 		 Description 
+				 		<div class="controls-group">​
+				 			<textarea cols="30" rows="3" name="description" id="desc">
+				 			</textarea>
+				 		</div> 
+				 		    <input type="submit">
+				 	</form>
+	 			</div>
+	 	 		<div id="info" class="span4">
+		 		 <table class="table table-bordered">
+		 		 	<thead>
+		 		 		<tr>
+		 		 			<th>First Name</th>
+		 		 		 	<th>Last Name</th>
+		 		 		 	<th>Description</th> 
+		 		 		</tr>
+		 		 		 
+		 		 	</thead>
+		 		 	<tbody>
+		 		 		
+		 		 	</tbody>
+		 		 </table>
+		 	 </table> 
+		 </div>
+	</div>
+	 	
+	 </body>
+</html>
